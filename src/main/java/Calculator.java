@@ -47,26 +47,25 @@ public class Calculator {
     }
 
     private static int parse(String input, List<String> expression){
+        input = input.replaceAll("\\s", "");
         int begin = 0;
         int end = 0;
         char currentChar;
         for (int i = 0; i < input.length(); i++) {
             currentChar = input.charAt(i);
+
             if (Character.isDigit(currentChar) || currentChar == '.' && i > 0 && input.charAt(i-1) != '.' && Character.isDigit(input.charAt(i-1))|| i == 0 && currentChar == '-') {
                 end++;
                 if (end >= input.length()) {
                     expression.add(input.substring(begin, end));
                 }
-            } else if (actions.contains(currentChar) && i != input.length() - 1 && i > 0 && Character.isDigit(input.charAt(i-1)) ) {
+            } else if (actions.contains(currentChar) && i != input.length() - 1 && i > 0 && Character.isDigit(input.charAt(i-1))) {
                 expression.add(input.substring(begin, end));
                 expression.add(String.valueOf(currentChar));
                 begin = i + 1;
                 end = begin;
             } else {
                 System.out.println("Ошибка ввода");
-                if (currentChar == '\s') {
-                    System.out.println("Введен пробел");
-                }
                 if (Character.isLetter(currentChar)) {
                     System.out.println("Введена буква");
                 }
